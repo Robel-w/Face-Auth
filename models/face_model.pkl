@@ -1,0 +1,3 @@
+"""
+Placeholder binary for model artifact. Replace with trained model.
+"""
