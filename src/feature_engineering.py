@@ -5,17 +5,29 @@ def extract_features(face_image):
 import os
 import numpy as np
 import cv2
-from preprocessing import detect_and_crop_face, preprocess_face
+from src.preprocessing import detect_and_crop_face, preprocess_face
 
 # Constants
 DATASET_PATH = "data/raw/"
 IMAGE_SIZE = 64
 
+# Initialize HOG descriptor
+hog = cv2.HOGDescriptor(
+    _winSize=(64,64),
+    _blockSize=(16,16),
+    _blockStride=(8,8),
+    _cellSize=(8,8),
+    _nbins=9
+)
+
 def image_to_vector(image):
-    """Flatten 64x64 grayscale image into 1D vector of length 4096"""
+    """Extract HOG features to capture shape/structure over raw pixels, boosting precision against fake matches."""
     if image is None:
         return None
-    return image.flatten()
+    # Convert normalized float32 image back to uint8 for OpenCV's HOG
+    img_uint8 = (image * 255).astype(np.uint8)
+    hog_features = hog.compute(img_uint8)
+    return hog_features.flatten()
 
 
 def load_dataset():

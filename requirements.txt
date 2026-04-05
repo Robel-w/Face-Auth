@@ -1,5 +1,10 @@
 streamlit
-opencv-python
+opencv-python-headless
 numpy
 scikit-learn
 pytest
+fastapi
+uvicorn
+python-multipart
+requests
+pandas

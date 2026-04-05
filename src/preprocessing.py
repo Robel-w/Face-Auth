@@ -50,3 +50,12 @@ def preprocess_face(cropped_face):
     normalized = gray.astype(np.float32) / 255.0
     
     return normalized
+
+
+def detect_and_align(image):
+    """Compatibility wrapper used by `src.predict`.
+
+    Returns the detected/cropped face region. If no face is found returns None.
+    """
+    # For now alignment is a no-op — just detect and return the cropped face.
+    return detect_and_crop_face(image)
